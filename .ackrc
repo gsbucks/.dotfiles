@@ -1,0 +1,4 @@
+--type-add=ruby=.haml,.rake,.feature,.coffee
+--smart-case
+--ignore-dir=javascripts
+--noxml
