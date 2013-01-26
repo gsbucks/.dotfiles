@@ -31,6 +31,8 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-rails'
 Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'ervandew/supertab'
@@ -42,24 +44,29 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'honza/snipmate-snippets'
 Bundle 'ZoomWin'
 Bundle 'kien/ctrlp.vim'
+Bundle 'godlygeek/tabular'
 Bundle 'Rename'
-
-Bundle 'rails.vim'
 
 filetype plugin indent on
 set ignorecase
 
 " New buffer at direction
-nmap <leader>sh   :leftabove  vnew<CR>
+nmap <leader>sh  :leftabove  vnew<CR>
 nmap <leader>sl  :rightbelow vnew<CR>
-nmap <leader>sk     :leftabove  new<CR>
-nmap <leader>sj   :rightbelow new<CR>
+nmap <leader>sk  :leftabove  new<CR>
+nmap <leader>sj  :rightbelow new<CR>
 
-" arrows traverse splits
-nnoremap <left>  <C-w>h
-nnoremap <right> <C-w>l
-nnoremap <down>  <C-w>j
-nnoremap <up>    <C-w>k
+" traverse splits
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wl <C-w>l
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wk <C-w>k
+
+" arrows resize splits
+nnoremap <UP>    <C-w>+
+nnoremap <DOWN>  <C-w>-
+nnoremap <LEFT>  <C-w>>
+nnoremap <RIGHT> <C-w><
 
 " Ctrl-P settings
 let g:ctrlp_max_height = 20
@@ -83,6 +90,7 @@ nnoremap <leader>a :tabe\|:Ack
 nnoremap <leader>g :Git
 nnoremap <leader>4 :tabclose<CR>
 nnoremap <leader>. :! 
+nnoremap <leader>{ :Tabularize /{<CR>
 
 nnoremap ; :
 
@@ -104,6 +112,8 @@ au FileType html setlocal shiftwidth=2 tabstop=2
 au FileType javascript setlocal shiftwidth=2 tabstop=2
 au FileType coffee setlocal shiftwidth=2 tabstop=2
 au FileType cucumber setlocal shiftwidth=2 tabstop=2
+au FileType ruby setlocal shiftwidth=2 tabstop=2
+au BufRead,BufNewFile *.thor set filetype=ruby
 
 " Populate args list with files in the quickfix window. Obtained from.. http://stackoverflow.com/questions/5686206/search-replace-using-quickfix-list-in-vim
 command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
