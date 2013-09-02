@@ -1,6 +1,7 @@
 set nocompatible
 filetype off
 syntax enable
+set mouse=""
 
 " Set , to be leader key
 let mapleader = ","
@@ -10,6 +11,9 @@ colorscheme solarized
 set guifont=AndaleMono:h14
 set guioptions-=T
 set hlsearch
+set backspace=2
+
+set clipboard=unnamed
 
 " Dont ask to re-read files changed outside vim
 set autoread
@@ -21,7 +25,6 @@ call vundle#rc()
 
 let g:ruby_debugger_progname = 'mvim'
 
-" let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
 
@@ -36,19 +39,20 @@ Bundle 'tpope/vim-rails'
 Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'ervandew/supertab'
-"req for snipmate 
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-"
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/snipmate-snippets'
-Bundle 'ZoomWin'
 Bundle 'kien/ctrlp.vim'
-Bundle 'godlygeek/tabular'
 Bundle 'Rename'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'Align'
 
 filetype plugin indent on
 set ignorecase
+
+" Configure vim-rspec
+let s:rspec_tmux_command = "tmux send -t primary.1 'rspec --drb {spec}' Enter" 
+let g:rspec_command = "!echo " . s:rspec_tmux_command . " && " . s:rspec_tmux_command
+nnoremap <leader>rr :silent call RunNearestSpec()<CR><c-L>
+nnoremap <leader>rf :silent call RunCurrentSpecFile()<CR><c-L>
+nnoremap <leader>rl :silent call RunLastSpec()<CR><c-L>
 
 " New buffer at direction
 nmap <leader>sh  :leftabove  vnew<CR>
@@ -73,14 +77,15 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("k")':   ['<Tab>'],
     \ }
+set wildignore+=*/tmp/*
 nnoremap <leader>y :tabe<CR>:CtrlP<CR>
 nnoremap <leader>t :CtrlP<CR>
 
+" Checktime reloads files editted outside vim (git)
+nnoremap <leader>q :checktime
+
 " Toggle line number Ctrl-N
 nmap <C-N><C-N> :set invnumber<CR>
-
-set foldmethod=indent
-set foldlevelstart=99
 
 command Wipetabs :%s/	/  /g
 
@@ -90,7 +95,14 @@ nnoremap <leader>a :tabe\|:Ack
 nnoremap <leader>g :Git
 nnoremap <leader>4 :tabclose<CR>
 nnoremap <leader>. :! 
-nnoremap <leader>{ :Tabularize /{<CR>
+nnoremap <leader>{ :Align {.*<CR>
+
+" Clear highlighting
+map <C-h> :nohl<cr>
+
+" Disable Ex mode, and capital K
+map Q <Nop>
+map K <Nop>
 
 nnoremap ; :
 
@@ -114,6 +126,8 @@ au FileType coffee setlocal shiftwidth=2 tabstop=2
 au FileType cucumber setlocal shiftwidth=2 tabstop=2
 au FileType ruby setlocal shiftwidth=2 tabstop=2
 au BufRead,BufNewFile *.thor set filetype=ruby
+au BufRead,BufNewFile *.rabl set filetype=ruby
+au BufRead,BufNewFile *.axlsx set filetype=ruby
 
 " Populate args list with files in the quickfix window. Obtained from.. http://stackoverflow.com/questions/5686206/search-replace-using-quickfix-list-in-vim
 command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
