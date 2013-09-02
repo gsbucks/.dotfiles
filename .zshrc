@@ -34,6 +34,8 @@ alias fetch="git stash && git fetch && git rebase origin/master && git stash pop
 alias gf="git fetch"
 alias ggro='git rebase origin/$(current_branch)'
 
+[[ -r ~/.zshrc-local ]] && . ~/.zshrc-local
+
 PATH=$PATH:$HOME/.rvm/bin
 export PATH
 
