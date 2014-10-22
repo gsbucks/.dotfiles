@@ -27,7 +27,6 @@ alias pry="nocorrect pry "
 alias drb="rspec --drb"
 alias fingerprint="ssh-keygen -l -f "
 alias devprep="sed -i '' 's/_test/_development/;2n' config/database.yml && rake db:test:prepare && sed -i '' 's/_development/_test/;2n' config/database.yml"
-alias cssh="ssh navi@crimson"
 alias redis="redis-server ~/.redis.conf"
 
 #tmux
