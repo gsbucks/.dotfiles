@@ -1,5 +1,6 @@
 --type-add=ruby=.haml,.rake,.feature,.coffee
 --smart-case
 --ignore-dir=javascripts
+--ignore-dir=coverage
 --ignore-dir=tmp
 --noxml

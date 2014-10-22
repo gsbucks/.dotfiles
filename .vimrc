@@ -42,7 +42,7 @@ Bundle 'ervandew/supertab'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Rename'
 Bundle 'thoughtbot/vim-rspec'
-Bundle 'Align'
+Bundle 'godlygeek/tabular'
 
 filetype plugin indent on
 set ignorecase
@@ -95,7 +95,7 @@ nnoremap <leader>a :tabe\|:Ack
 nnoremap <leader>g :Git
 nnoremap <leader>4 :tabclose<CR>
 nnoremap <leader>. :! 
-nnoremap <leader>{ :Align {.*<CR>
+nnoremap <leader>{ :Tabularize /{
 
 " Clear highlighting
 map <C-h> :nohl<cr>
@@ -128,6 +128,17 @@ au FileType ruby setlocal shiftwidth=2 tabstop=2
 au BufRead,BufNewFile *.thor set filetype=ruby
 au BufRead,BufNewFile *.rabl set filetype=ruby
 au BufRead,BufNewFile *.axlsx set filetype=ruby
+au BufRead,BufNewFile *.hamljs set filetype=haml
+
+" toggle red line at 101st character to keep lines under 80 chars
+function! g:ToggleRedline()
+  if(&colorcolumn == 101)
+    set colorcolumn=0
+  else
+    set colorcolumn=101
+  endif
+endfunc
+nnoremap <leader>l :call g:ToggleRedline()<cr>
 
 " Populate args list with files in the quickfix window. Obtained from.. http://stackoverflow.com/questions/5686206/search-replace-using-quickfix-list-in-vim
 command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()

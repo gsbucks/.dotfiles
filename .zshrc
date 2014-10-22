@@ -12,6 +12,9 @@ export __CF_USER_TEXT_ENCODING
 EDITOR=vim
 export EDITOR
 
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+
 alias zshconf="vim ~/.zshrc"
 alias devtail="less -r -n +F log/development.log"
 alias testtail="less -r -n +F log/test.log"
@@ -24,15 +27,19 @@ alias pry="nocorrect pry "
 alias drb="rspec --drb"
 alias fingerprint="ssh-keygen -l -f "
 alias devprep="sed -i '' 's/_test/_development/;2n' config/database.yml && rake db:test:prepare && sed -i '' 's/_development/_test/;2n' config/database.yml"
+alias cssh="ssh navi@crimson"
+alias redis="redis-server ~/.redis.conf"
 
 #tmux
 alias mux="~/boot_tmux_env"
 alias tks="tmux kill-session"
 alias tls="tmux list-sessions"
+alias tmod="lsof -U | grep '^tmux.*default' | sed -n 's/.*\(\/private.*$\)/\1/p' | xargs chmod 666"
 
 alias fetch="git stash && git fetch && git rebase origin/master && git stash pop"
 alias gf="git fetch"
 alias ggro='git rebase origin/$(current_branch)'
+alias okgo='git rebase --continue'
 
 [[ -r ~/.zshrc-local ]] && . ~/.zshrc-local
 
