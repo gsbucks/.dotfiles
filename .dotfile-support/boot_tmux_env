@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+SESH_NAME="work"
+tmux has-session -t $SESH_NAME &> /dev/null
+
+if [ $? != 0 ]
+ then
+   tmux new -d -s $SESH_NAME -n primary
+   tmux source-file ".tmux-session"
+fi
+
+tmux attach -t $SESH_NAME
