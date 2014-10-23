@@ -22,8 +22,8 @@ alias testtail="less -r -n +F log/test.log"
 alias migrate="bundle exec rake db:migrate --trace"
 alias rollback="bundle exec rake db:rollback"
 alias testprep="bundle exec rake db:test:prepare --trace"
-alias devsql="/usr/local/mysql/bin/mysql --user=root --database navcan_development"
-alias testsql="/usr/local/mysql/bin/mysql --user=root --database navcan_test"
+alias devsql="mysql --user=root --database navcan_development"
+alias testsql="mysql --user=root --database navcan_test"
 alias pry="nocorrect pry "
 alias drb="rspec --drb"
 alias fingerprint="ssh-keygen -l -f "
@@ -45,5 +45,6 @@ alias okgo='git rebase --continue'
 
 source $ZSH/oh-my-zsh.sh
 
+export PATH="$PATH:/usr/X11/bin"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"

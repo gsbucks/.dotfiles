@@ -20,7 +20,8 @@ set clipboard=unnamed
 " Dont ask to re-read files changed outside vim
 set autoread
 
-set rnu "relative line numbers
+set relativenumber
+set number
 
 " original repos on github
 "git clone git://github.com/tpope/vim-fugitive
