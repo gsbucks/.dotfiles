@@ -1,10 +1,9 @@
-[[ -s "/Users/bucks/.rvm/scripts/rvm" ]] && source "/Users/bucks/.rvm/scripts/rvm"
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="blinks"
 DISABLE_AUTO_UPDATE=true
 DISABLE_AUTO_TITLE=true
 
-plugins=(git vi-mode bundler rails3)
+plugins=(git vi-mode bundler rails)
 
 __CF_USER_TEXT_ENCODING=0x1F5:0x08000100:0
 export __CF_USER_TEXT_ENCODING
@@ -14,6 +13,8 @@ export EDITOR
 
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
+
+bindkey '^R' history-incremental-search-backward
 
 alias zshconf="vim ~/.zshrc"
 alias devtail="less -r -n +F log/development.log"
@@ -42,9 +43,7 @@ alias okgo='git rebase --continue'
 
 [[ -r ~/.zshrc-local ]] && . ~/.zshrc-local
 
-PATH=$PATH:$HOME/.rvm/bin
-export PATH
-
 source $ZSH/oh-my-zsh.sh
 
-export PATH=/Users/bucks/.rvm/gems/ruby-1.9.3-p194@rails32/bin:/Users/bucks/.rvm/gems/ruby-1.9.3-p194@global/bin:/Users/bucks/.rvm/rubies/ruby-1.9.3-p194/bin:/Users/bucks/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/Users/bucks/.rvm/bin
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"

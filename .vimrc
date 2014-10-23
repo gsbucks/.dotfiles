@@ -1,3 +1,5 @@
+execute pathogen#infect()
+
 set nocompatible
 filetype off
 syntax enable
@@ -20,29 +22,19 @@ set autoread
 
 set rnu "relative line numbers
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-let g:ruby_debugger_progname = 'mvim'
-
-" required! 
-Bundle 'gmarik/vundle'
-
-" My Bundles here:
-"
 " original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-rails'
-Bundle 'mileszs/ack.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'ervandew/supertab'
-Bundle 'kien/ctrlp.vim'
-Bundle 'Rename'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'godlygeek/tabular'
+"git clone git://github.com/tpope/vim-fugitive
+"git clone git://github.com/tpope/vim-surround
+"git clone git://github.com/tpope/vim-unimpaired
+"git clone git://github.com/tpope/vim-repeat
+"git clone git://github.com/tpope/vim-rails
+"git clone git://github.com/mileszs/ack.vim
+"git clone git://github.com/scrooloose/nerdcommenter
+"git clone git://github.com/ervandew/supertab
+"git clone git://github.com/kien/ctrlp.vim
+"git clone git://github.com/thoughtbot/vim-rspec
+"git clone git://github.com/godlygeek/tabular
+"git clone git://github.com/tpope/vim-eunuch
 
 filetype plugin indent on
 set ignorecase
