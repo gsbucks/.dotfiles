@@ -1,0 +1,4 @@
+.tmux-session
+*.swp
+*.swo
+*.swn
