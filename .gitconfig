@@ -1,0 +1,20 @@
+[core]
+	editor = vim
+	excludesfile = /Users/geoff/.gitignore_global
+[color]
+	ui = auto
+        diff = auto
+[alias]
+        l = log --decorate
+        s = status
+        co = checkout
+        a = add
+        f = fetch
+        rom = rebase origin/master
+        back1 = reset --hard HEAD~
+        st = stash
+        stp = stash pop
+        pom = push origin master
+        a   = add -p
+[interactive]
+	singlekey = true
