@@ -45,6 +45,6 @@ alias okgo='git rebase --continue'
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH="$PATH:/usr/X11/bin"
+export PATH="/usr/local/bin:$PATH:/usr/X11/bin"
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
