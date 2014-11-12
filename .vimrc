@@ -42,11 +42,15 @@ filetype plugin indent on
 set ignorecase
 
 " Configure vim-rspec
-let s:rspec_tmux_command = "tmux send -t primary.1 'rspec --drb {spec}' Enter" 
+let s:rspec_tmux_command = "tmux send -t primary.0 'rspec --drb {spec}' Enter" 
 let g:rspec_command = "!echo " . s:rspec_tmux_command . " && " . s:rspec_tmux_command
 nnoremap <leader>rr :silent call RunNearestSpec()<CR><c-L>
 nnoremap <leader>rf :silent call RunCurrentSpecFile()<CR><c-L>
 nnoremap <leader>rl :silent call RunLastSpec()<CR><c-L>
+
+" Configure vim-slime
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": ":2.1"}
 
 " New buffer at direction
 nmap <leader>sh  :leftabove  vnew<CR>

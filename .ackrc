@@ -3,4 +3,9 @@
 --ignore-dir=javascripts
 --ignore-dir=coverage
 --ignore-dir=tmp
+--ignore-dir=log
+--ignore-dir=doc
+--ignore-file=is:LOINC_SUBSET.csv
+--ignore-file=is:seed_dump.rb
+--ignore-file=is:dump.sql
 --noxml

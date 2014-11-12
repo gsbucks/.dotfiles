@@ -2,3 +2,5 @@
 *.swp
 *.swo
 *.swn
+dump.sql
+recent_queries.sql
