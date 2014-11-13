@@ -41,6 +41,8 @@ alias gf="git fetch"
 alias ggro='git rebase origin/$(current_branch)'
 alias okgo='git rebase --continue'
 
+alias lsnc='ls --color=never'
+
 [[ -r ~/.zshrc-local ]] && . ~/.zshrc-local
 
 source $ZSH/oh-my-zsh.sh
