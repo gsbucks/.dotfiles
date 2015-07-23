@@ -4,3 +4,4 @@
 *.swn
 dump.sql
 recent_queries.sql
+Session.vim

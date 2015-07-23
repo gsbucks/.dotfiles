@@ -17,6 +17,10 @@ set backspace=2
 
 set clipboard=unnamed
 
+" cedit defaults to C-F, which is my tmux prefix. cedit is:
+" 'The key used in Command-line Mode to open the command-line window'
+set cedit=<C-N>
+
 " Dont ask to re-read files changed outside vim
 set autoread
 
@@ -50,7 +54,7 @@ nnoremap <leader>rl :silent call RunLastSpec()<CR><c-L>
 
 " Configure vim-slime
 let g:slime_target = "tmux"
-let g:slime_default_config = {"socket_name": "default", "target_pane": ":2.1"}
+let g:slime_default_config = {"socket_name": "/tmp/pair", "target_pane": ":2.1"}
 
 " New buffer at direction
 nmap <leader>sh  :leftabove  vnew<CR>
@@ -82,9 +86,6 @@ nnoremap <leader>t :CtrlP<CR>
 " Checktime reloads files editted outside vim (git)
 nnoremap <leader>q :checktime
 
-" Toggle line number Ctrl-N
-nmap <C-N><C-N> :set invnumber<CR>
-
 command Wipetabs :%s/	/  /g
 
 " Random Leader Commands
@@ -102,8 +103,6 @@ map <C-h> :nohl<cr>
 map Q <Nop>
 map K <Nop>
 
-nnoremap ; :
-
 " Use space to toggle folds
 nnoremap <space> za
 
@@ -117,12 +116,10 @@ map N Nzz
 map n nzz
 
 " Set tab to 2 spaces
+set softtabstop=2
+set shiftwidth=2
+set tabstop=2
 set expandtab
-au FileType html setlocal shiftwidth=2 tabstop=2
-au FileType javascript setlocal shiftwidth=2 tabstop=2
-au FileType coffee setlocal shiftwidth=2 tabstop=2
-au FileType cucumber setlocal shiftwidth=2 tabstop=2
-au FileType ruby setlocal shiftwidth=2 tabstop=2
 au BufRead,BufNewFile *.thor set filetype=ruby
 au BufRead,BufNewFile *.rabl set filetype=ruby
 au BufRead,BufNewFile *.axlsx set filetype=ruby

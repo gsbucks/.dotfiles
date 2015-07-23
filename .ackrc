@@ -5,6 +5,7 @@
 --ignore-dir=tmp
 --ignore-dir=log
 --ignore-dir=doc
+--ignore-dir=.yardoc
 --ignore-file=is:LOINC_SUBSET.csv
 --ignore-file=is:seed_dump.rb
 --ignore-file=is:dump.sql
