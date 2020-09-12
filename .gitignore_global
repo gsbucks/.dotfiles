@@ -4,4 +4,7 @@
 *.swn
 dump.sql
 recent_queries.sql
+recent_queries.js
 Session.vim
+node_modules
+notes
