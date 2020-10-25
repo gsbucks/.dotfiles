@@ -1,6 +1,6 @@
 [core]
 	editor = vim
-	excludesfile = /Users/geoff/.gitignore_global
+	excludesfile = /home/bucks/.gitignore_global
 [color]
 	ui = auto
         diff = auto
@@ -8,7 +8,6 @@
         l = log --decorate
         s = status
         co = checkout
-        a = add
         f = fetch
         rom = rebase origin/master
         back1 = reset --hard HEAD~
@@ -17,4 +16,9 @@
         pom = push origin master
         a   = add -p
 [interactive]
-	singlekey = true
+	singleKey = true
+[user]
+	email = geoff@picomes.com
+	name = Geoff Bucks
+[commit]
+	verbose = true

@@ -1,6 +1,10 @@
-#!/bin/zsh
+#!/bin/bash
 
-SESH_NAME="work"
+if [[ "$1" != "" ]]; then
+  SESH_NAME="$1"
+else
+  SESH_NAME="work"
+fi
 tmux has-session -t $SESH_NAME &> /dev/null
 
 if [ $? != 0 ]

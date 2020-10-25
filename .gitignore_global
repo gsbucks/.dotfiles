@@ -2,8 +2,10 @@
 *.swp
 *.swo
 *.swn
+*.swl
+*.swm
 dump.sql
-recent_queries.sql
+recent_queries*
 recent_queries.js
 Session.vim
 node_modules

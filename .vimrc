@@ -1,5 +1,3 @@
-execute pathogen#infect()
-
 set nocompatible
 filetype off
 syntax enable
@@ -11,14 +9,16 @@ set foldlevel=9999
 " Set , to be leader key
 let mapleader = ","
 
+"set termguicolors
 set background=dark
+"let g:solarized_termcolors=256
 colorscheme solarized
 set guifont=AndaleMono:h14
 set guioptions-=T
 set hlsearch
 set backspace=2
 set backupcopy=yes " writes could cause webpack not to reload
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 set completeopt-=preview "stop opening autocomplete window in vim-go
 
@@ -35,7 +35,6 @@ set number
 let g:SuperTabDefaultCompletionType = "context"
 
 " original repos on github
-"git clone git://github.com/tpope/vim-pathogen
 "git clone git://github.com/tpope/vim-fugitive
 "git clone git://github.com/tpope/vim-surround
 "git clone git://github.com/tpope/vim-unimpaired
@@ -43,12 +42,12 @@ let g:SuperTabDefaultCompletionType = "context"
 "git clone git://github.com/tpope/vim-commentary
 "git clone git://github.com/tpope/vim-eunuch
 "git clone git://github.com/kien/ctrlp.vim
-"git clone git://github.com/thoughtbot/vim-rspec
 "git clone git://github.com/pangloss/vim-javascript
 "git clone git://github.com/mxw/vim-jsx
 "git clone git://github.com/jremmen/vim-ripgrep
 "git clone git://github.com/jpalardy/vim-slime
 "git clone git://github.com/fatih/vim-go
+"git clone git://github.com/prettier/vim-prettier
 
 filetype plugin indent on
 set ignorecase
@@ -110,6 +109,7 @@ let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("k")':   ['<Tab>'],
     \ }
 set wildignore+=*/tmp/*,node_modules
+set wildignorecase
 nnoremap <leader>y :tabe<CR>:CtrlP<CR>
 nnoremap <leader>t :CtrlP<CR>
 
@@ -155,6 +155,8 @@ au BufRead,BufNewFile *.axlsx set filetype=ruby
 au BufRead,BufNewFile *.hamljs set filetype=haml
 
 autocmd FileType go setlocal noexpandtab tabstop=2 shiftwidth=2
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : getline('.')[col('.')-2] =~# '[[:alnum:].-_#$]' ? "\<C-x>\<C-o>" : "\<Tab>"
 
 " toggle red line at 101st character to keep lines under 80 chars
 function! g:ToggleRedline()
