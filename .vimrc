@@ -32,8 +32,6 @@ set autoread
 set relativenumber
 set number
 
-let g:SuperTabDefaultCompletionType = "context"
-
 " original repos on github
 "git clone git://github.com/tpope/vim-fugitive
 "git clone git://github.com/tpope/vim-surround
@@ -42,8 +40,8 @@ let g:SuperTabDefaultCompletionType = "context"
 "git clone git://github.com/tpope/vim-commentary
 "git clone git://github.com/tpope/vim-eunuch
 "git clone git://github.com/kien/ctrlp.vim
+"git clone git://github.com/MaxMEllon/vim-jsx-pretty
 "git clone git://github.com/pangloss/vim-javascript
-"git clone git://github.com/mxw/vim-jsx
 "git clone git://github.com/jremmen/vim-ripgrep
 "git clone git://github.com/jpalardy/vim-slime
 "git clone git://github.com/fatih/vim-go
@@ -53,7 +51,7 @@ filetype plugin indent on
 set ignorecase
 
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.css,*.json,*.md,*.yaml,*.html Prettier
+autocmd BufWritePre *.js,*.jsx,*.css,*.json,*.md,*.yaml,*.html,*.ts,*.tsx Prettier
 
 let s:last_go_run = ""
 
@@ -156,8 +154,6 @@ au BufRead,BufNewFile *.hamljs set filetype=haml
 
 autocmd FileType go setlocal noexpandtab tabstop=2 shiftwidth=2
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : getline('.')[col('.')-2] =~# '[[:alnum:].-_#$]' ? "\<C-x>\<C-o>" : "\<Tab>"
-
 " toggle red line at 101st character to keep lines under 80 chars
 function! g:ToggleRedline()
   if(&colorcolumn == 101)
@@ -192,3 +188,20 @@ nmap <silent> <leader>mn :call MarkWindowSwap()<CR>
 nmap <silent> <leader>ms :call DoWindowSwap()<CR>
 """ END SWAPPING SPLITS """
 
+
+""" COC Stuff
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"

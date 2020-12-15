@@ -39,13 +39,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 4 -10% &
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 4 toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 4 toggle && $refresh_i3status
 
-bindsym XF86AudioPlay exec --no-startup-id spotplaypause
-#bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl spotnext
-bindsym XF86AudioPrev exec playerctl spotprev
-
-#bindsym $mod+Shift+t exec --no-startup-id xinput set-prop "Geoff Bucks’s Trackpad" "libinput Tapping Enabled" 1 && xinput set-prop "Geoff Bucks’s Trackpad" "libinput Natural Scrolling Enabled" 1 && xinput set-prop "Geoff Bucks’s Trackpad" "libinput Accel Speed" 0.5 && xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1 && xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1 && xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Accel Speed" 0.5 && && xinput set-prop "Microsoft Microsoft Optical Mouse with Tilt Wheel Mouse" "libinput Natural Scrolling Enabled" 1
-
+bindsym XF86AudioPlay exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym XF86AudioNext exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindsym XF86AudioPrev exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
