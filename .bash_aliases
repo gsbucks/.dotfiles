@@ -1,10 +1,11 @@
-alias dk='docker-compose -f /home/bucks/src/pico-docker/docker-compose.yml'
+alias dk='docker-compose -f /home/bucks/src/pico-docker/docker-compose.yml -f /home/bucks/src/pico-docker/docker-compose.override.yml'
 
 alias okgo='git rebase --continue'
 alias gst='git status'
 alias ggpush='git push origin `git rev-parse --abbrev-ref HEAD`'
 alias ggro='git rebase origin/`git rev-parse --abbrev-ref HEAD`'
 alias gco='git checkout'
+alias gcp='git cherry-pick'
 
 if [ -f "/usr/share/bash-completion/completions/git" ]; then
   source /usr/share/bash-completion/completions/git
@@ -22,8 +23,11 @@ alias vpnup='sudo service openvpn start internal'
 alias vpndown='sudo service openvpn stop internal'
 
 alias nomonitor='xrandr --output DP-1 --off'
-alias monitor='xrandr --output DP-1 --auto --left-of eDP-1'
+alias monitor='xrandr --output DP-1 --auto --right-of eDP-1'
 
 alias spotplaypause='dbus-send --print-reply --dest=$SPOTIFY_DEST $SPOTIFY_PATH $SPOTIFY_MEMB.PlayPause'
 alias spotnext='dbus-send --print-reply --dest=$SPOTIFY_DEST $SPOTIFY_PATH $SPOTIFY_MEMB.Next'
 alias spotprev='dbus-send --print-reply --dest=$SPOTIFY_DEST $SPOTIFY_PATH $SPOTIFY_MEMB.Previous'
+
+alias servy='ssh bucks@192.168.86.56'
+alias servypipe='ssh -L 9999:localhost:32400 bucks@192.168.86.56'

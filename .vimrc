@@ -73,10 +73,28 @@ endfunc
 nnoremap <leader>rr :call g:CurrentGoFuncTest()<CR><C-L>
 
 function! g:LastGoFileTest()
-  :execute "! tmux send -t mes:primary.0 'clear' Enter"
-  :execute "! tmux send -t mes:primary.0 'go test " . s:last_go_run . "' Enter"
+  :execute "! tmux send -t mes:primary.1 'clear' Enter"
+  :execute "! tmux send -t mes:primary.1 'go test " . s:last_go_run . "' Enter"
 endfunc
 nnoremap <leader>rl :call g:LastGoFileTest()<CR><C-L>
+
+function! g:CurrentGoFuncDelve()
+  let temp = system("~/testReducer -file " . expand("%") . " -line " . line(".") . " -d")
+  let s:last_dlv_run = substitute(temp, '\n', '', 'g')
+  call g:LastGoFileDelve()
+endfunc
+nnoremap <leader>dr :call g:CurrentGoFuncDelve()<CR><C-L>
+
+function! g:LastGoFileDelve()
+  :execute "! tmux send -t mes:primary.1 'clear' Enter"
+  :execute "! tmux send -t mes:primary.1 'dlv test " . s:last_dlv_run . "' Enter"
+endfunc
+nnoremap <leader>dl :call g:LastGoFileDelve()<CR><C-L>
+
+function! g:SetDelveBreakpoint()
+  :execute "! tmux send -t mes:primary.1 'break " . expand("%") . ":" . line(".") . "' Enter"
+endfunc
+nnoremap <leader>db :call g:SetDelveBreakpoint()<CR><C-L>
 
 " Configure vim-slime
 let g:slime_target = "tmux"
@@ -191,17 +209,55 @@ nmap <silent> <leader>ms :call DoWindowSwap()<CR>
 
 """ COC Stuff
 " Use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use K to show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+"set updatetime=1000
+"
+"
+
+" Ale stuff
+let g:ale_lint_delay = 1000
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'css': ['prettier'],
+\   'javascript': ['prettier', 'eslint'],
+\   'json': ['prettier', 'fixjson'],
+\   'typescript': ['prettier', 'eslint'],
+\}
+let g:ale_completion_enabled = 1
+let g:ale_completion_autoimport = 1
+set omnifunc=ale#completion#OmniFunc
+
+" https://github.com/dense-analysis/ale/issues/3373#issuecomment-701967881
+" Made a modification to ale code :(
+
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
+
+inoremap <leader><Tab> <C-X><C-O>
+inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
