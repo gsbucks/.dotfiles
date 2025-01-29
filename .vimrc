@@ -59,6 +59,9 @@ let g:go_fmt_command = "goimports"
 let g:go_def_mode = "gopls"
 let g:go_info_mode = "gopls"
 
+" %1 is the TMUX_PANE env var (the pane ID)
+let g:tmux_send = "! tmux send -t %1 "
+
 function! g:CurrentGoSuiteTest()
   let s:last_go_run = "./..."
   call g:LastGoFileTest()
@@ -73,8 +76,8 @@ endfunc
 nnoremap <leader>rr :call g:CurrentGoFuncTest()<CR><C-L>
 
 function! g:LastGoFileTest()
-  :execute "! tmux send -t mes:primary.1 'clear' Enter"
-  :execute "! tmux send -t mes:primary.1 'go test " . s:last_go_run . "' Enter"
+  " :execute g:tmux_send . "'clear' Enter"
+  :execute g:tmux_send . "'narf go test -failfast " . s:last_go_run . "' Enter"
 endfunc
 nnoremap <leader>rl :call g:LastGoFileTest()<CR><C-L>
 
@@ -86,13 +89,13 @@ endfunc
 nnoremap <leader>dr :call g:CurrentGoFuncDelve()<CR><C-L>
 
 function! g:LastGoFileDelve()
-  :execute "! tmux send -t mes:primary.1 'clear' Enter"
-  :execute "! tmux send -t mes:primary.1 'dlv test " . s:last_dlv_run . "' Enter"
+  :execute g:tmux_send . "'clear' Enter"
+  :execute g:tmux_send . "'dlv test " . s:last_dlv_run . "' Enter"
 endfunc
 nnoremap <leader>dl :call g:LastGoFileDelve()<CR><C-L>
 
 function! g:SetDelveBreakpoint()
-  :execute "! tmux send -t mes:primary.1 'break " . expand("%") . ":" . line(".") . "' Enter"
+  :execute g:tmux_send . "'break " . expand("%") . ":" . line(".") . "' Enter"
 endfunc
 nnoremap <leader>db :call g:SetDelveBreakpoint()<CR><C-L>
 
@@ -124,7 +127,7 @@ let g:ctrlp_switch_buffer = 'et'
 let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("k")':   ['<Tab>'],
     \ }
-set wildignore+=*/tmp/*,node_modules
+set wildignore+=*/tmp/*,node_modules,*/static/*
 set wildignorecase
 nnoremap <leader>y :tabe<CR>:CtrlP<CR>
 nnoremap <leader>t :CtrlP<CR>
@@ -134,9 +137,10 @@ nnoremap <leader>q :checktime
 
 " Random Leader Commands
 nnoremap <leader>a :tabe\|:Rg<Space>
+nnoremap <leader>A :tabe\|:Rg<Space><C-r><C-w>
 nnoremap <leader>g :Git
 nnoremap <leader>4 :tabclose<CR>
-nnoremap <leader>. :! 
+nnoremap <leader>. :!
 
 " Set VIMs search to ripgrep
 " set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
@@ -199,7 +203,7 @@ function! DoWindowSwap()
     "Switch to dest and shuffle source->dest
     exe curNum . "wincmd w"
     "Hide and open so that we aren't prompted and keep history
-    exe 'hide buf' markedBuf 
+    exe 'hide buf' markedBuf
 endfunction
 
 nmap <silent> <leader>mn :call MarkWindowSwap()<CR>

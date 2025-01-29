@@ -8,6 +8,7 @@
         l = log --decorate
         s = status
         co = checkout
+		cp = cherry-pick
         f = fetch
         rom = rebase origin/master
         back1 = reset --hard HEAD~
@@ -22,3 +23,5 @@
 	name = Geoff Bucks
 [commit]
 	verbose = true
+[init]
+	defaultBranch = main

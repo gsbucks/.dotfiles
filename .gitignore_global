@@ -4,9 +4,13 @@
 *.swn
 *.swl
 *.swm
+*.swk
+*.swi
+*.swj
 dump.sql
 recent_queries*
 recent_queries.js
 Session.vim
 node_modules
-notes
+^notes
+manual_stuff

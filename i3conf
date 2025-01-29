@@ -31,6 +31,8 @@ font pango:monospace 8
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
+exec_always --no-startup-id setxkbmap -option caps:swapescape
+
 # Use pactl to adjust volume in PulseAudio.
 # Replaced @DEFAULT_SINK@ with 4 for now
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -38,6 +40,10 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 4 +10% &
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 4 -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 4 toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 4 toggle && $refresh_i3status
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 3 +10% && $refresh_i3status
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 3 -10% && $refresh_i3status
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 3 toggle && $refresh_i3status
+# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 3 toggle && $refresh_i3status
 
 bindsym XF86AudioPlay exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 bindsym XF86AudioNext exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
@@ -141,12 +147,13 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-set $mode_system System (l) lock, (e) exit, (s) suspend, (Shift+s) shutdown
+set $mode_system System (l) lock, (e) exit, (s) suspend, (Shift+r) restart, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $locker, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id $locker && systemctl suspend, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -187,9 +194,11 @@ bar {
 
 bindsym $mod+Tab workspace back_and_forth
 
-bindsym Print exec gnome-screenshot -i 
+bindsym Print exec gnome-screenshot -i
 bindsym $mod+Print exec gnome-screenshot -a
 
+bindsym $mod+Shift+Up move workspace to output up
+bindsym $mod+Shift+Down move workspace to output down
 bindsym $mod+Shift+greater move workspace to output right
 bindsym $mod+Shift+less move workspace to output left
 
@@ -212,13 +221,17 @@ bindsym $mod+Shift+s mode "$start_things"
 
 
 assign [class="^Google-chrome$"] 1
-# assign [class="^Google-chrome$"] output primary
 assign [class="^Firefox$"] 2
 assign [class="^Slack$"] 3
-assign [class="^Spotify$"] 5
 
 # Toggle monitor
-bindsym $mod+Control+Shift+m exec --no-startup-id xrandr --output DP-1 --off
-bindsym $mod+Shift+m exec --no-startup-id xrandr --output DP-1 --auto --right-of eDP-1
+bindsym $mod+Control+Shift+m exec --no-startup-id xrandr --output DP-1 --off --output HDMI-2 --off
+bindsym $mod+Shift+m exec --no-startup-id xrandr --output HDMI-2 --mode 2560x1440 --pos 0x0 --output DP-1 --mode 2560x1440 --pos 2560x0 --output eDP-1 --mode 1920x1080 --pos 1280x1440
+#Single HDMI monitor
+#bindsym $mod+Shift+m exec --no-startup-id xrandr --output HDMI-2 --mode 2560x1440 --above --output eDP-1 --mode 1920x1080
+workspace 1 output HDMI-2
+workspace 3 output HDMI-2
+workspace 4 output DP-1
 
-exec --no-startup-id redshift -b 0.9:0.8 -t 6000:3500 -l 43.10:-77.40
+# Try to recover from memory lockup
+bindsym $mod+Shift+p exec --no-startup-id killall node

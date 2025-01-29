@@ -64,6 +64,8 @@ memory {
 
 tztime local {
         format = "%m/%d %I:%M:%S"
+        # Comment this line when back on east coast
+        #timezone = "America/Chicago"
 }
 
 tztime gmt {
