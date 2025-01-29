@@ -1,0 +1,102 @@
+[[language]]
+name="go"
+formatter = { command = "goimports" }
+indent = { tab-width = 2, unit = "\t" }
+
+# [[language]]
+# name = "typescript"
+# formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+# auto-format = true
+
+# [[language]]
+# name = "tsx"
+# formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+# auto-format = true
+
+
+[[language]]
+name = "typescript"
+scope = "source.ts"
+injection-regex = "(ts|typescript)"
+# language-servers = [{except-features = ["format"], name = "typescript-language-server"}]
+language-servers = [{except-features = ["format"], name = "typescript-language-server"}, "eslint"]
+roots = [".prettierrc", ""]
+file-types = ["ts", "mts", "cts"]
+formatter = { command = 'prettier', args = ["--stdin-filepath", "file.ts"] }
+auto-format = true
+
+# [[language]]
+# language-servers = [{except-features = ["format"], name = "typescript-language-server"}, "eslint"]
+# roots = [".prettierrc"]
+# name = "javascript"
+# scope = "source.js"
+# injection-regex = "(js|javascript)"
+# file-types = ["js", "mjs", "cjs"]
+# formatter = { command = 'prettier', args = ["--stdin-filepath", "file.js"] }
+# auto-format = true
+
+# [[language]]
+# language-servers = [{except-features = ["format"], name = "typescript-language-server"}, "eslint"]
+# roots = [".prettierrc"]
+# name = "jsx"
+# scope = "source.jsx"
+# injection-regex = "jsx"
+# file-types = ["jsx"]
+# formatter = { command = 'prettier', args = ["--stdin-filepath", "file.jsx"] }
+# indent = { tab-width = 4, unit = "\t" }
+# auto-format = true
+
+[[language]]
+language-servers = [{except-features = ["format"], name = "typescript-language-server"}, "eslint"]
+# language-servers = [{except-features = ["format"], name = "typescript-language-server"}]
+roots = [".prettierrc"]
+name = "tsx"
+scope = "source.tsx"
+injection-regex = "(tsx)" # |typescript
+file-types = ["tsx"]
+formatter = { command = 'prettier', args = ["--stdin-filepath", "file.tsx"] }
+auto-format = true
+
+[[language]]
+name = "css"
+scope = "source.css"
+injection-regex = "css"
+file-types = ["css"]
+language-servers = ["vscode-css-language-server"]
+roots = [".prettierrc"]
+auto-format = true
+
+[language-server.eslint]
+args = ["--stdio"]
+command = "vscode-eslint-language-server"
+
+[language-server.eslint.config]
+validate = "on"
+experimental = { useFlatConfig = false }
+rulesCustomizations = []
+run = "onType"
+problems = { shortenToSingleLine = false }
+nodePath = ""
+
+[language-server.eslint.config.codeAction]
+[language-server.eslint.config.codeAction.disableRuleComment]
+enable = true
+location = "separateLine"
+
+[language-server.eslint.config.codeAction.showDocumentation]
+enable = true
+
+[language-server.eslint.config.codeActionOnSave]
+enable = true
+mode = "fixAll"
+
+[language-server.eslint.config.workingDirectories]
+mode = "location"
+# pattern = "./mes/**"
+
+[language-server.typescript-language-server]
+args = ["--stdio"]
+command = "typescript-language-server"
+
+[language-server.typescript-language-server.config]
+documentFormatting = false
